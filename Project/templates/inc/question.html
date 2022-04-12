@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="row question">
+    <div class="d-flex position-relative">
+        <img src={% static "img/avatar1.jpg" %} class="avatar-question flex-shrink-0 me-3" alt="...">
+        <div>
+            <h5 class="mt-0"><a href="{% url 'question' question.number %}">{{question.title}}</a></h5>
+            <p>{{question.text}}</p>
+            <p>Tags: 
+                {% for tag in question.tags %}
+                    <a href="{% url 'tags' tag%}">{{tag}}</a>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+</div>

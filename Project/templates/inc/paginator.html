@@ -1,0 +1,10 @@
+{% load static %}
+<div class="pagination">
+    {% if page.has_previous %}
+        <a href="{% url 'index' %}?page={{ page.previous_page_number }}">Previous Page</a>
+    {% endif %}
+    <a class="active">{{page.number}}</a>
+    {% if page.has_next %}
+        <a href="{% url 'index' %}?page={{ page.next_page_number }}">Next Page</a>
+    {% endif %}
+</div>
