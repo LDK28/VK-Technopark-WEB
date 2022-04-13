@@ -21,13 +21,14 @@ QUESTIONS.append({"title": f"Title #{11}",
                   "number": 11,
                   "tags": ["Python", "Technopark"]})
 
+def paginate(objects_list, request, per_page=10):
+    items_paginator = Paginator(objects_list, per_page)
+    page_num = request.GET.get('page')
+    page = items_paginator.get_page(page_num)
+    return page
 
 def index(request):
-    questions_paginator = Paginator(QUESTIONS, 5)
-    page_num = request.GET.get('page')
-    page = questions_paginator.get_page(page_num)
-
-
+    page = paginate(QUESTIONS, request, 5)
     return render(request, "index.html", {'page': page})
 
 
