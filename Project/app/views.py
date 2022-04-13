@@ -2,14 +2,17 @@ from multiprocessing import context
 from django.shortcuts import render
 from django.core.paginator import Paginator
 # Create your views here.
+from .models import *
+
+q = Question.objects.all()
 
 QUESTIONS = [
     {
-        "title": f"Title #{i}",
-        "text": f"This is text for q #{i}",
+        "title": f"{q[i].title}",
+        "text": f"{q[i].text}",
         "number": i,
         "tags": ["This is a tag", "another tag", "tag"]
-    } for i in range(10)
+    } for i in range(len(q))
 ]
 
 QUESTIONS.append({"title": f"Title #{10}",

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,7 +71,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'askme.wsgi.application'
 
 
-# Database
+# Database~
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
