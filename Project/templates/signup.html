@@ -1,10 +1,12 @@
 {% extends 'inc/base.html' %}
+{% load bootstrap4 %}
+
 
 {% block content %}
     <h2 class="mt-5">Registration</h2>
     <p class="error-text">Sorry, this email address already registred!</p>
 
-    <form>
+    <form action="/asker.com/signup/" method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% comment %} 
@@ -34,7 +36,8 @@
             <label class="form-check-label" for="exampleCheck1">Stay logged in</label>
         </div> 
         {% endcomment %}
-
+        
+        <br>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 {% endblock content %}

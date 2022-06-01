@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import unique
 from pyexpat import model
 from tabnanny import verbose
@@ -18,8 +19,8 @@ class QuestionLikesManager(models.Manager):
         return likes
 
 class AnswerLikesManager(models.Manager):
-    def with_count_on_question_id(self, question_id: int):
-        likes = LikeQuestion.objects.filter(question=question_id).count()
+    def with_count_on_answer_id(self, answer_id: int):
+        likes = LikeAnswer.objects.filter(answer=answer_id).count()
         return likes
 
 
@@ -27,8 +28,8 @@ class AnswerManager(models.Manager):
     def with_question(self, question_id):
         return self.filter(question = question_id)
 
-class CustomUser(AbstractUser):
-    avatar = models.ImageField()
+class CustomUser(User):
+    avatar = models.ImageField(blank=True, null=True, default='avatar2.jpg', upload_to='avatar/%Y/%m/%d/')
 
     def __str__(self):
         return f"{self.email}"
@@ -49,7 +50,7 @@ class Question(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_q_set')
-    tags = models.ManyToManyField(Tag, null=True)
+    tags = models.ManyToManyField(Tag, null=True, blank=True) 
 
     objects = QuestionManager()
 

@@ -6,8 +6,9 @@
         <div>
             <p>{{answer.text}}</p>
             <p>
-                <img src={% static "img/box2-heart-fill.svg" %} class="like-answer">
-                999
+                <input class="like-button" type="image" src={% static "img/box2-heart-fill.svg" %}/> 
+                {{answer.likes}}
+
             </p>
         </div>
     </div>

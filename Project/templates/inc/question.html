@@ -6,15 +6,20 @@
         <div>
             <h5 class="mt-0"><a href="{% url 'question' question.number %}">{{question.title}}</a></h5>
             <p>{{question.text}}</p>
-            <p>Tags: 
-                {% for tag in question.tags %}
-                    <a href="{% url 'tags' tag%}">{{tag}}</a>
-                {% endfor %}
-            </p>
-            <p>
-                <img src={% static "img/box2-heart-fill.svg" %} class="like-question">
-                {{question.likes}}
-            </p>
+            {% if question.tags %}
+                <p>Tags: 
+                    {% for tag in question.tags %}
+                        <a href="{% url 'tags' tag%}">{{tag}}</a>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            <form>
+                {% csrf_token %}
+                {% comment %} <input class="like-button" data-id="{{ question.id }}" type="image" src={% static "img/box2-heart-fill.svg" %}/>  {% endcomment %}
+                <button class="like-button" data-id="{{ question.id }}" type="button">like</button>
+                {% comment %} <p class="question-likes"> {{ question.likes }}</p> {% endcomment %}
+            </form>
         </div>
     </div>
 </div>

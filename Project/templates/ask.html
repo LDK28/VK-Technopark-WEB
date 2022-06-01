@@ -1,8 +1,11 @@
 {% extends 'inc/base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
 <h2 class="mt-5">Ask question</h2>
-    <form>
+    <form action="/asker.com/ask/" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% comment %}         
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Question title</label>
             <input type="email" class="form-control" id="exampleInputEmail1"
@@ -15,7 +18,10 @@
         <div class="mb-3">
             <label for="questionTags" class="form-label">Tags</label>
             <input type="text" class="form-control" id="questionTags">
-        </div>
+        </div> 
+        {% endcomment %}
+
+        <br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock content %}
