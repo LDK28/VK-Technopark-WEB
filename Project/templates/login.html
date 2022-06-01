@@ -1,21 +1,31 @@
 {% extends 'inc/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
 
 {% block content %}
-<h2 class="mt-5">Log in</h2>
-    <form>
+    <h2 class="mt-5">Log in</h2>
+    <p class="error-text">Sorry, wrong password!</p>
+
+    <form action="/asker.com/login/" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        
+        {% comment %} 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Login</label>
-            <input type="email" class="form-control" id="exampleInputEmail1"
+            <label for="inputEmail1" class="form-label">Login</label>
+            <input name="email" type="email" class="form-control" id="inputEmail1"
                 aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-            <label for="Password" class="form-label">Password</label>
-            <input type="text" class="form-control" id="Password">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" type="text" class="form-control" id="password">
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Stay logged in</label>
-        </div>
+            <label class="form-check-label" for="check1">Stay logged in</label>
+        </div> 
+        {% endcomment %}
+
         <button type="submit" class="btn btn-primary">Log in</button>
     </form>
 {% endblock content %}

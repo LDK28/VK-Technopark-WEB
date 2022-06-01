@@ -1,7 +1,8 @@
 from enum import unique
+from pyexpat import model
 from tabnanny import verbose
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 class QuestionManager(models.Manager):
     def with_tag(self, tag: str):
@@ -11,12 +12,22 @@ class QuestionManager(models.Manager):
         else:
             return self.filter(tags = -1)
 
+class QuestionLikesManager(models.Manager):
+    def with_count_on_question_id(self, question_id: int):
+        likes = LikeQuestion.objects.filter(question=question_id).count()
+        return likes
+
+class AnswerLikesManager(models.Manager):
+    def with_count_on_question_id(self, question_id: int):
+        likes = LikeQuestion.objects.filter(question=question_id).count()
+        return likes
+
 
 class AnswerManager(models.Manager):
     def with_question(self, question_id):
         return self.filter(question = question_id)
 
-class Profile(User):
+class CustomUser(AbstractUser):
     avatar = models.ImageField()
 
     def __str__(self):
@@ -37,7 +48,7 @@ class Tag(models.Model):
 class Question(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField(null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_q_set')
     tags = models.ManyToManyField(Tag, null=True)
 
     objects = QuestionManager()
@@ -47,16 +58,19 @@ class Question(models.Model):
 
 
 class LikeQuestion(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_lq_set')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_lq_set')
+    
+    objects = QuestionLikesManager()
 
     class Meta:
         abstract = False
+        unique_together=("user", "question")
 
 class Answer(models.Model):
     text = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_a_set')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_a_set')
 
     objects = AnswerManager()
 
@@ -65,11 +79,15 @@ class Answer(models.Model):
 
 
 class LikeAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_la_set')
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='user_a_set')
 
+    objects = AnswerLikesManager()
+    
     class Meta:
         abstract = False
+        unique_together=("user", "answer")
+
 
 
 

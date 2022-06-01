@@ -2,4 +2,11 @@
 {% load static %}
 {% block content %}
 {% include "inc/question.html"%}
+
+<h2 class="mt-5">Answers</h2>
+{% for answer in page.object_list %}
+    {% include "inc/answer.html"%}
+{% endfor %}
+
+{% include "inc/paginator.html" %}
 {% endblock content %}

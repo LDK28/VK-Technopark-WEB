@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class="row answer">
+    <div class="d-flex position-relative">
+        <img src={% static "img/avatar1.jpg" %} class="avatar-answer flex-shrink-0 me-3" alt="...">
+        <div>
+            <p>{{answer.text}}</p>
+            <p>
+                <img src={% static "img/box2-heart-fill.svg" %} class="like-answer">
+                999
+            </p>
+        </div>
+    </div>
+</div>

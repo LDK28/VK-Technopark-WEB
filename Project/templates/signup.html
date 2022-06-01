@@ -1,11 +1,16 @@
 {% extends 'inc/base.html' %}
 
 {% block content %}
-<h2 class="mt-5">Registration</h2>
+    <h2 class="mt-5">Registration</h2>
+    <p class="error-text">Sorry, this email address already registred!</p>
+
     <form>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% comment %} 
         <div class="mb-3">
-            <label for="InputLogin" class="form-label">Login</label>
-            <input type="InputLogin" class="form-control" id="InputLogin"
+            <label for="InputUserName" class="form-label">UserName</label>
+            <input type="InputUserName" class="form-control" id="InputUserName"
                 aria-describedby="loginHelp">
         </div>
         <div class="mb-3">
@@ -13,11 +18,6 @@
             <input type="email" class="form-control" id="exampleInputEmail1"
                 aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3">
-            <label for="InputNickName" class="form-label">NickName</label>
-            <input type="InputNickName" class="form-control" id="InputNickName"
-                aria-describedby="NickNameHelp">
         </div>
         <div class="mb-3">
             <label for="InputPassword" class="form-label">Password</label>
@@ -32,7 +32,9 @@
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Stay logged in</label>
-        </div>
+        </div> 
+        {% endcomment %}
+
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 {% endblock content %}

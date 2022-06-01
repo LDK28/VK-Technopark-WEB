@@ -11,6 +11,10 @@
                     <a href="{% url 'tags' tag%}">{{tag}}</a>
                 {% endfor %}
             </p>
+            <p>
+                <img src={% static "img/box2-heart-fill.svg" %} class="like-question">
+                {{question.likes}}
+            </p>
         </div>
     </div>
 </div>
