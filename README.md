@@ -44,9 +44,9 @@ pip list                           - отображение списка пак�
 
 source venv/bin/activate           - активация окружения
 
-django-admin startproject askme .  - создание проекта askme
+django-admin startproject PROJECT .  - создание проекта askme
 
-python manage.py startapp app
+python manage.py startapp APP        - создание приложения внутри проекта
 
 python manage.py runserver         - запуск сервера на локальном хосте
 ```

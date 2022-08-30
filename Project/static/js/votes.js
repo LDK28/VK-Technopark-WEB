@@ -35,6 +35,7 @@ $(".like-button").on('click', function (ev) {
         response.json().then(function (parsed) {
             $(".question-likes").text(parsed.new_rating)
             $this.text(parsed.new_rating + ' Likes')
+            // $this.color('red')
         })
     })
 })

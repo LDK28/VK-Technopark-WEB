@@ -27,7 +27,6 @@ class AnswerLikesManager(models.Manager):
 class AnswerManager(models.Manager):
     def with_question(self, question_id):
         return self.filter(question = question_id)
-
 class CustomUser(User):
     avatar = models.ImageField(blank=True, null=True, default='avatar2.jpg', upload_to='avatar/%Y/%m/%d/')
 

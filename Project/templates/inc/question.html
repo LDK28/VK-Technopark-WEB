@@ -2,7 +2,7 @@
 
 <div class="row question">
     <div class="d-flex position-relative">
-        <img src={% static "img/avatar1.jpg" %} class="avatar-question flex-shrink-0 me-3" alt="...">
+        <img src={% static "img/avatar2.png" %} class="avatar-question flex-shrink-0 me-3" alt="...">
         <div>
             <h5 class="mt-0"><a href="{% url 'question' question.number %}">{{question.title}}</a></h5>
             <p>{{question.text}}</p>
@@ -18,6 +18,7 @@
                 {% csrf_token %}
                 {% comment %} <input class="like-button" data-id="{{ question.id }}" type="image" src={% static "img/box2-heart-fill.svg" %}/>  {% endcomment %}
                 <button class="like-button" data-id="{{ question.id }}" type="button">like</button>
+                <b>153 likes</b>
                 {% comment %} <p class="question-likes"> {{ question.likes }}</p> {% endcomment %}
             </form>
         </div>

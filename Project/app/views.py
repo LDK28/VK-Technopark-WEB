@@ -57,7 +57,7 @@ def index(request):
     return render(request, "index.html", {'page': page})
 
 ## hotq
-@login_required() # ???
+@login_required(login_url="/asker.com/login")
 def ask(request):
     print(request.POST)
 
@@ -78,7 +78,23 @@ def ask(request):
 def question(request, i: int): #, title: str):
     answers = Answer.objects.filter(question = QUESTIONS[i].get('id'))
     page = paginate(answers, request, 5)
-    return render(request, "question_page.html", {"question": QUESTIONS[i], "page": page}) #, "title": title})
+
+    if request.method == 'GET':
+        answer_form = AnswerForm()
+    elif request.method == 'POST':
+        answer_form = AnswerForm(data=request.POST)
+        if answer_form.is_valid():
+            data = Answer.objects.create(text=request.POST.get('text'),
+                                        user_id=q[0].user_id,
+                                        question=QUESTIONS[i].get('id'))
+            data.save()
+            print(data)
+
+    return render(request, "question_page.html", {
+        "question": QUESTIONS[i], 
+        "page": page, 
+        'form': answer_form
+    }) #, "title": title})
 
 def signup(request):
     print(request.POST)
@@ -129,7 +145,7 @@ def tags(request, tag: str):
     return render(request, "tags.html", {"questions": QUESTIONS, "tag": tag})
 
 
-@login_required
+# @login_required
 @require_POST
 def vote(request):
     question_id = request.POST['question_id']

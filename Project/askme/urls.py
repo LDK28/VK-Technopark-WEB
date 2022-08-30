@@ -23,5 +23,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('asker.com/', include("app.urls"))
 ] 
-# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

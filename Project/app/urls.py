@@ -14,6 +14,5 @@ urlpatterns = [
     path('tags/<str:tag>', views.tags, name="tags"),
     path('profile/', views.profile, name="profile"),
     path('vote/', views.vote, name="vote"),
-] 
-# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

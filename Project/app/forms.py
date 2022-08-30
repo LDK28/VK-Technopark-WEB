@@ -1,7 +1,7 @@
 from dataclasses import field
 from dis import dis
 from django import forms
-from .models import CustomUser, Question
+from .models import Answer, CustomUser, Question
 
 # class UserForm(forms.ModelForm):
 #     username = forms.CharField(widget=forms.Textarea)
@@ -44,6 +44,12 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ["title", "text"]
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ["text"]
+
 
 class SettingsForm(forms.ModelForm):
     username = forms.CharField(disabled=True)

@@ -1,5 +1,6 @@
 {% extends 'inc/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 {% block content %}
 {% include "inc/question.html"%}
 
@@ -9,4 +10,14 @@
 {% endfor %}
 
 {% include "inc/paginator.html" %}
+
+<h2 class="mt-5">Create your answer</h2>
+<form action="/asker.com/ask/" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 {% endblock content %}
